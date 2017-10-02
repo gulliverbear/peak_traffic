@@ -20,21 +20,38 @@ def remove_node(d, node):
     a dictionary where the values are sets of connected nodes, key is a node
     remove the node from all values and as a key, return new dictionary
     '''
-    # to do
+    temp_d = dict(d)
+    if node in temp_d:
+        del temp_d[node]
+    for key in temp_d:
+        if node in temp_d[key]:
+            temp_d[key].remove(node)
+    return temp_d
     
 def is_clique(d, t):
     '''
     given a dictionary of connections and a tuple of 3 nodes
     checks if they form a clique
     '''
-    # to do
+    temp_d = dict(d) # just good practice to make a local copy
+    node1, node2, node3 = t
+    if node2 not in temp_d[node1] or node3 not in temp_d[node1]:
+        return False
+    if node2 not in temp_d[node3]:
+        return False
+    return True
     
 def check_merge_cliques(t1, t2, d):
     '''
     given 2 cliques and a connections dictionary
     returns True if can merge the cliques
     '''
-    # to do
+    temp_d = dict(d)
+    for node1 in t1:
+        for node2 in t2:
+            if node2 not in temp_d[node1] and node1 != node2:
+                return False
+    return True
     
 def check_subset(t1, t2):
     '''
